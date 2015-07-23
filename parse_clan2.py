@@ -27,12 +27,14 @@ class Parser:
         self.words = []
         self.comments = []          # includes all the comments
         self.plain_comments = []    # not including subregion/silence comments
+        if not self.check_intervals():
+            return
         self.parse()
         self.filter_comments()
         self.export()
 
     def parse(self):
-
+        print "hello"
         last_line = ""
         multi_line = ""
 
@@ -158,7 +160,6 @@ class Parser:
                                     " ",
                                     "NA"])
 
-
     def filter_comments(self):
         """
         Filter out all the subregion and silence comments,
@@ -168,6 +169,23 @@ class Parser:
             if ("subregion" not in comment[0]) and\
                     ("silence" not in comment[0]):
                 self.plain_comments.append(comment)
+
+    def check_intervals(self):
+        """
+        Makes sure there is at most 1 timestamp interval on a line
+        :return: returns false if we found a problem
+        """
+
+        with open(self.input_file, "rU") as input:
+            for index, line in enumerate(input):
+                regx_result = self.interval_regx.findall(line)
+                if regx_result:
+                    if len(regx_result) > 1:
+                        print "Found more than 1 interval on a single CLAN line:   line #" + str(index)
+                        return False
+                    else:
+                        continue
+            return True
 
 if __name__ == "__main__":
 

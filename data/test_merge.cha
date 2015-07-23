@@ -194,8 +194,9 @@
 *TVF:	0 . 4382180_4383470
 %xdb:	average_dB="-48.90" peak_dB="-33.72"
 *CHF:	0 4383470_4383780
-	&=vocalization 4383780_4384180
-	0 . 4384180_4384550
+	&=vocalization words &=d_y_MOT words &=d_y_MOT words &=d_y_MOT words
+	&=d_y_MOT words &=d_y_MOT words &=d_y_MOT words &=d_y_MOT words
+	&=d_y_MOT 4383780_4384180 0 . 4384180_4384550
 %com:	|RC|4|1|1|AICF|TIFR|FI|
 %xdb:	average_dB="-45.74" peak_dB="-36.06"
 *FAN:	&=w12_47 . 4384550_4388090
