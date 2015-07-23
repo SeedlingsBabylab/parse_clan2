@@ -5863,7 +5863,7 @@
 *CHN:	&=vocalization . 7036710_7038010
 %com:	|RC|92|114|2|AICF|NT|FH|
 %xdb:	average_dB="-12.79" peak_dB="-7.73"
-*CHN:	&=vocalization bunk &=d_n_SIS 7038010_7038690
+*CHN:	&=vocalization bunk &=d_n_SIS . 7038010_7038690
 %xcom:	refers to bottom bunk bed
 	0 . 7038690_7039010
 %com:	|RC|92|114|2|AICF|NT|FH|
@@ -19610,7 +19610,7 @@
 *SIL:	0 . 14064210_14066750
 %xcom:	silence 1 of 2 starts at 14066750.0 -- previous timestamp adjusted: was 14233340
 %xdb:	average_dB="-46.04" peak_dB="-16.40"
-*CHF:	0 14233340_14233470
+*CHF:	0 . 14233340_14233470
 %xcom:	subregion 2 of 5 ends at 14100000 -- previous timestamp adjusted: was 14233470 [contains silent region: [14066750.0, 19239031.579] ]
 	&=vfx 14233470_14233840
 	0 . 14233840_14233940

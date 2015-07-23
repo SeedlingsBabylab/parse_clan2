@@ -22,7 +22,7 @@ class Parser:
         re8='((?:[a-z][a-z0-9_]*))' # speaker
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
-        self.interval_regx = re.compile("(\d+_\d{3,})")
+        self.interval_regx = re.compile("(\025\d+_\d+)")
 
         self.words = []
         self.comments = []          # includes all the comments
@@ -34,6 +34,7 @@ class Parser:
     def parse(self):
 
         last_line = ""
+        multi_line = ""
 
         prev_interval = [None, None]
         curr_interval = [None, None]
@@ -42,6 +43,9 @@ class Parser:
             for index, line in enumerate(input):
 
                 if line.startswith("*"):
+
+                    # reset multi_line
+                    multi_line = ""
                     interval_reg_result = self.interval_regx.search(line)
 
                     if interval_reg_result is None:
@@ -53,7 +57,7 @@ class Parser:
                     prev_interval[1] = curr_interval[1]
 
                     # set the new curr_interval
-                    interval_str = interval_reg_result.group()
+                    interval_str = interval_reg_result.group().replace("\025", "")
                     interval = interval_str.split("_")
                     curr_interval[0] = int(interval[0])
                     curr_interval[1] = int(interval[1])
@@ -77,18 +81,20 @@ class Parser:
 
                     if interval_reg_result is None:
                         print "interval regx returned none. clan line: " + str(index)
-                        last_line = line
+                        multi_line += line
+                        print multi_line
                         continue
+
                     prev_interval[0] = curr_interval[0]
                     prev_interval[1] = curr_interval[1]
 
                     # set the new curr_interval
-                    interval_str = interval_reg_result.group()
+                    interval_str = interval_reg_result.group().replace("\025", "")
                     interval = interval_str.split("_")
                     curr_interval[0] = int(interval[0])
                     curr_interval[1] = int(interval[1])
 
-                    entries = self.entry_regx.findall(line)
+                    entries = self.entry_regx.findall(multi_line + line)
 
                     if entries:
                         for entry in entries:
@@ -100,14 +106,18 @@ class Parser:
                                                curr_interval[0],    # onset
                                                curr_interval[1]])   # offset
 
-                if (line.startswith("%com:") and ("|" not in line)):
+                    multi_line = "" # empty the mutiple line buffer
 
+                if (line.startswith("%com:") and ("|" not in line)):
+                    # get rid of quotation marks, %com's and newlines
                     comment = line.replace("%com:\t", "")\
                                   .replace("\"", "")\
                                   .replace("\n", "")
 
                     self.comments.append((comment, curr_interval[0], curr_interval[1]))
+
                 if (line.startswith("%xcom:")) and ("|" not in line):
+                    # get rid of quotation marks, %xcom's and newlines
                     comment = line.replace("%xcom:\t", "")\
                                   .replace("\"", "")\
                                   .replace("\n", "")
