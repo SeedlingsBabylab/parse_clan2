@@ -12,10 +12,6 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,head,d,n,SIS,4529660_4531800, ,NA
 *FAN,nose,q,y,MOT,4628130_4630270, ,NA
 *FAN,baba,n,y,MOT,4754430_4755540, ,NA
-*FAN,pencil,d,y,MOT,4801900_4804820, ,NA
-*FAN,pencil,d,y,BRO,4801900_4804820, ,NA
-*CHN,pencils,d,y,BRO,4806640_4807240, ,NA
-*FAN,book,q,y,MOT,4810770_4811830, ,NA
 *FAN,hair,d,n,BRO,4852240_4853240, ,NA
 *FAN,face,d,n,BRO,4853840_4856140, ,NA
 *FAN,hair,d,y,BRO,4857590_4859410, ,NA

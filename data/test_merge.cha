@@ -196,7 +196,8 @@
 *CHF:	0 4383470_4383780
 	&=vocalization words &=d_y_MOT words &=d_y_MOT words &=d_y_MOT words
 	&=d_y_MOT words &=d_y_MOT words &=d_y_MOT words &=d_y_MOT words
-	&=d_y_MOT 4383780_4384180 0 . 4384180_4384550
+	&=d_y_MOT 4383780_4384180
+	0 . 4384180_4384550
 %com:	|RC|4|1|1|AICF|TIFR|FI|
 %xdb:	average_dB="-45.74" peak_dB="-36.06"
 *FAN:	&=w12_47 . 4384550_4388090
@@ -1067,6 +1068,7 @@
 *OLN:	0 . 4800210_4801030
 %xdb:	average_dB="-30.92" peak_dB="-15.18"
 *CXN:	0 . 4801030_4801900
+%xcom:	begin skip
 %com:	|RC|18|20|1|AICF|NT|FI|
 %xdb:	average_dB="-27.34" peak_dB="-18.66"
 *FAN:	&=w11_01 pencil &=d_y_MOT pencil &=d_y_BRO . 4801900_4804820
@@ -1089,6 +1091,7 @@
 %com:	|RC|18|21|2|AICF|NT|FH|
 %xdb:	average_dB="-30.37" peak_dB="-22.88"
 *SIL:	0 . 4811830_4813060
+%xcom:	end skip
 %xdb:	average_dB="-59.60" peak_dB="-43.43"
 *FAN:	&=w6_67 . 4813060_4814530
 %com:	|RC|18|21|2|AICF|TIFI|FH|

@@ -24,6 +24,8 @@ class Parser:
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
+        self.skipping = False
+        self.begin_skip_start = None
         self.words = []
         self.comments = []          # includes all the comments
         self.plain_comments = []    # not including subregion/silence comments
@@ -34,7 +36,6 @@ class Parser:
         self.export()
 
     def parse(self):
-        print "hello"
         last_line = ""
         multi_line = ""
 
@@ -44,6 +45,46 @@ class Parser:
         with open(self.input_file, "rU") as input:
             for index, line in enumerate(input):
 
+                if (line.startswith("%com:") and ("|" not in line)):
+                    if "begin skip" in line:
+                        print "Begin skip found in line# " + str(index) + "\n\n"
+                        self.skipping = True
+                        self.begin_skip_start = index
+                        continue
+                    if "end skip" in line:
+                        self.skipping = False
+                        self.begin_skip_start = None
+                        continue
+                    # get rid of quotation marks, %com's and newlines
+                    comment = line.replace("%com:\t", "")\
+                                  .replace("\"", "")\
+                                  .replace("\n", "")
+
+                    self.comments.append((comment, curr_interval[0], curr_interval[1]))
+
+                if (line.startswith("%xcom:")) and ("|" not in line):
+                    if "begin skip" in line:
+                        print "Begin skip starts at line# " + str(index) + "\n\n"
+                        self.skipping = True
+                        self.begin_skip_start = index
+                        continue
+                    if "end skip" in line:
+                        #print "Found *end skip*"
+                        self.skipping = False
+                        self.begin_skip_start = None
+                        continue
+                    # get rid of quotation marks, %xcom's and newlines
+                    comment = line.replace("%xcom:\t", "")\
+                                  .replace("\"", "")\
+                                  .replace("\n", "")
+
+                    self.comments.append((comment, curr_interval[0], curr_interval[1]))
+
+                #
+                # if self.skipping:
+                #     print "skipping line: " + line
+                #     continue
+
                 if line.startswith("*"):
 
                     # reset multi_line
@@ -51,7 +92,7 @@ class Parser:
                     interval_reg_result = self.interval_regx.search(line)
 
                     if interval_reg_result is None:
-                        print "interval regx returned none. clan line: " + str(index)
+                        #print "interval regx returned none. clan line: " + str(index)
                         last_line = line
                         continue
                      # rearrange previous and current intervals
@@ -67,14 +108,20 @@ class Parser:
                     entries = self.entry_regx.findall(line)
 
                     if entries:
-                        for entry in entries:
-                            self.words.append([line[0:4],
-                                               entry[0],            # word
-                                               entry[3],            # utterance_type
-                                               entry[5],            # object_present
-                                               entry[7],            # speaker
-                                               curr_interval[0],    # onset
-                                               curr_interval[1]])   # offset
+                        if self.skipping:
+                            print "Object word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
+                            #print "Begin skip starts at line# " + str(self.begin_skip_start)
+                            print "line: " + line
+                            continue
+                        else:
+                            for entry in entries:
+                                self.words.append([line[0:4],
+                                                   entry[0],            # word
+                                                   entry[3],            # utterance_type
+                                                   entry[5],            # object_present
+                                                   entry[7],            # speaker
+                                                   curr_interval[0],    # onset
+                                                   curr_interval[1]])   # offset
 
                     last_line = line
 
@@ -82,9 +129,9 @@ class Parser:
                     interval_reg_result = self.interval_regx.search(line)
 
                     if interval_reg_result is None:
-                        print "interval regx returned none. clan line: " + str(index)
+                        #print "interval regx returned none. clan line: " + str(index)
                         multi_line += line
-                        print multi_line
+                        #print multi_line
                         continue
 
                     prev_interval[0] = curr_interval[0]
@@ -99,6 +146,11 @@ class Parser:
                     entries = self.entry_regx.findall(multi_line + line)
 
                     if entries:
+                        if self.skipping:
+                            print "Object word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
+                            #print "Begin skip starts at line# " + str(self.begin_skip_start)
+                            print "line: " + line
+                            continue
                         for entry in entries:
                             self.words.append([last_line[0:4],
                                                entry[0],            # word
@@ -110,24 +162,9 @@ class Parser:
 
                     multi_line = "" # empty the mutiple line buffer
 
-                if (line.startswith("%com:") and ("|" not in line)):
-                    # get rid of quotation marks, %com's and newlines
-                    comment = line.replace("%com:\t", "")\
-                                  .replace("\"", "")\
-                                  .replace("\n", "")
 
-                    self.comments.append((comment, curr_interval[0], curr_interval[1]))
-
-                if (line.startswith("%xcom:")) and ("|" not in line):
-                    # get rid of quotation marks, %xcom's and newlines
-                    comment = line.replace("%xcom:\t", "")\
-                                  .replace("\"", "")\
-                                  .replace("\n", "")
-
-                    self.comments.append((comment, curr_interval[0], curr_interval[1]))
-
-        print self.words
-        print self.comments
+        #print self.words
+        #print self.comments
 
     def export(self):
 
@@ -138,7 +175,7 @@ class Parser:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","timestamp","basic_level","comment"])
             for entry in self.words:
-                print entry
+                #print entry
                 if entry[5] == curr_comment[1]:
                     writer.writerow([entry[0],
                                     entry[1],
