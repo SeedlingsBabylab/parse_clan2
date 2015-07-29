@@ -47,7 +47,7 @@ class Parser:
 
                 if (line.startswith("%com:") and ("|" not in line)):
                     if "begin skip" in line:
-                        print "Begin skip found in line# " + str(index) + "\n\n"
+                        print "Begin skip found in line# " + str(index) + "\n"
                         self.skipping = True
                         self.begin_skip_start = index
                         continue
@@ -64,7 +64,7 @@ class Parser:
 
                 if (line.startswith("%xcom:")) and ("|" not in line):
                     if "begin skip" in line:
-                        print "Begin skip starts at line# " + str(index) + "\n\n"
+                        print "Begin skip starts at line# " + str(index) + "\n"
                         self.skipping = True
                         self.begin_skip_start = index
                         continue
@@ -94,6 +94,7 @@ class Parser:
                     if interval_reg_result is None:
                         #print "interval regx returned none. clan line: " + str(index)
                         last_line = line
+                        multi_line += line
                         continue
                      # rearrange previous and current intervals
                     prev_interval[0] = curr_interval[0]
@@ -109,7 +110,7 @@ class Parser:
 
                     if entries:
                         if self.skipping:
-                            print "Object word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
+                            print "\nObject word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
                             #print "Begin skip starts at line# " + str(self.begin_skip_start)
                             print "line: " + line
                             continue
@@ -143,11 +144,12 @@ class Parser:
                     curr_interval[0] = int(interval[0])
                     curr_interval[1] = int(interval[1])
 
+                    print "multi_line + line: " + multi_line + line
                     entries = self.entry_regx.findall(multi_line + line)
 
                     if entries:
                         if self.skipping:
-                            print "Object word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
+                            print "\nObject word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
                             #print "Begin skip starts at line# " + str(self.begin_skip_start)
                             print "line: " + line
                             continue
@@ -186,7 +188,8 @@ class Parser:
                                     " ",
                                     curr_comment[0]])
 
-                    curr_comment = comment_queue.popleft()
+                    if comment_queue:
+                        curr_comment = comment_queue.popleft()
                 else:
                     writer.writerow([entry[0],
                                     entry[1],

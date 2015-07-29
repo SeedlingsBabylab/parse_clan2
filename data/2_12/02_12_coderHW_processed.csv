@@ -1,0 +1,15 @@
+tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
+*FAN,water,d,y,MOT,320710_321990, ,NA
+*FAN,garbage+bag,n,y,MOT,438770_439780, ,NA
+*MAN,garbage+can,d,n,MOT,460120_461130, ,NA
+*FAN,finger,q,n,MOT,471180_473620, ,NA
+*FAN,mouth,q,n,MOT,471180_473620, ,NA
+*TVF,blueberry,q,n,MOT,494920_496950, ,NA
+*FAN,lap,q,n,MOT,496950_498480, ,NA
+*FAN,ants,d,n,MOT,506850_508220, ,NA
+*MAN,house,d,n,MOT,511040_512490, ,NA
+*TVF,water,d,n,MOT,517620_518620, ,NA
+*FAN,mug,q,n,MOT,527920_529380, ,NA
+*FAN,water,q,n,MOT,534900_535900, ,NA
+*FAN,blueberry,n,y,SIS,555500_556660, ,NA
+*FAN,blueberry,n,y,SIS,559850_560860, ,HW stop
