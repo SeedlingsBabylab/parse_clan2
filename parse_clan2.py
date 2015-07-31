@@ -1,5 +1,6 @@
 from Tkinter import Tk
 from tkFileDialog import askopenfilename
+from tkMessageBox import showwarning
 
 import csv
 import re
@@ -23,6 +24,7 @@ class Parser:
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
+        self.joined_num_regx = re.compile("(_[a-z]{3}\d+)", re.IGNORECASE | re.DOTALL)
 
         self.skipping = False
         self.begin_skip_start = None
@@ -107,6 +109,11 @@ class Parser:
                     curr_interval[1] = int(interval[1])
 
                     entries = self.entry_regx.findall(line)
+
+                    joined_num = self.joined_num_regx.findall(line)
+
+                    if joined_num:
+                        showwarning("Malformed entry", "line# " +str(index) + "   " + str(joined_num))
 
                     if entries:
                         if self.skipping:
