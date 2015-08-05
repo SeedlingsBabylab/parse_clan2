@@ -15,7 +15,7 @@ class Parser:
 
         re1='((?:[a-z][a-z0-9_+]*))' # the word
         re2='(\\s+)'	            # whitespace
-        re3='(&=)'	                # &
+        re3='(&=)'	                # &=
         re4='(.)'	                # utterance_type
         re5='(_)'	                # _
         re6='(.)'	                # object_present
@@ -23,7 +23,7 @@ class Parser:
         re8='((?:[a-z][a-z0-9_]*))' # speaker
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
-        self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(|)'+re6+'(|)'+re8, re.IGNORECASE | re.DOTALL)
+        self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
         self.joined_num_regx = re.compile("(_[a-z]{3}\d+)", re.IGNORECASE | re.DOTALL)
