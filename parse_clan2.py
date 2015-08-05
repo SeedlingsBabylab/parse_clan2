@@ -178,8 +178,9 @@ class Parser:
     def export(self):
 
         comment_queue = collections.deque(self.plain_comments)
-        curr_comment = comment_queue.popleft()
-
+        if comment_queue:
+            curr_comment = comment_queue.popleft()
+        curr_comment = ("no comment", 0, 0)
         with open(self.output_file, "w") as output:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","timestamp","basic_level","comment"])

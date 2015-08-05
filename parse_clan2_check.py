@@ -11,7 +11,7 @@ def parse_clan_count(path):
     with open(path, "rU") as file:
         for raw_line in file:
             line = raw_line.split()
-            clan_counts.append((int(line[0]), line[1]))
+            clan_counts.append((int(line[0]), line[1].lower()))
     print clan_counts
 
 
@@ -20,7 +20,7 @@ def parse_parseclan_output(path):
         file.readline() # skip the header
         for raw_line in file:
             line = raw_line.split(",")
-            parseclan_words.append(line[1])
+            parseclan_words.append(line[1].lower())
     print parseclan_words
 
 if __name__ == "__main__":
@@ -46,3 +46,11 @@ if __name__ == "__main__":
     print
     print "# of words (clan): " + str(clan_count_sum)
     print "# of words (parse_clan2): " + str(len(parseclan_words))
+
+    with open("clan_counts.txt", "w") as file:
+        for entry in clan_counts:
+            file.write(str(entry) + "\n")
+
+    with open("parseclan_counts.txt", "w") as file:
+        for entry in parseclan_counted:
+            file.write(str(parseclan_counted[entry]) + " " + str(entry) + "\n")
