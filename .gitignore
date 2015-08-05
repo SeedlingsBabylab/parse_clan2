@@ -2,3 +2,5 @@
 *.pyc
 *.DS_Store
 .idea
+clan_counts.txt
+parseclan_counts.txt

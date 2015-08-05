@@ -38,7 +38,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *MAN,fingers,n,n,FAT,3051460_3052460, ,NA
 *MAN,dog,d,n,FAT,3147470_3149350, ,NA
 *MAF,hand,q,y,FAT,3150160_3151160, ,NA
-*MAF,piggies,d,n,FAT,3152850_3153870, ,refers to fingers
+*MAF,piggies,d,n,FAT,3152850_3153870, ,NA
 *MAF,piggies,d,n,FAT,3155560_3156590, ,NA
 *OLF,vest,d,y,FAT,3211510_3212610, ,NA
 *MAF,boogers,q,n,FAT,3554210_3555020, ,NA
@@ -204,10 +204,6 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *NON,chicken,n,n,MOT,26241740_26247290, ,NA
 *NON,chicken,d,n,MOT,26241740_26247290, ,NA
 *NON,chicken,d,n,MOT,26241740_26247290, ,NA
-*NON,chicken,q,n,MOT,26241740_26247290, ,NA
-*NON,chicken,q,n,MOT,26241740_26247290, ,NA
-*NON,chicken,d,n,MOT,26241740_26247290, ,NA
-*NON,chicken,d,n,MOT,26241740_26247290, ,NA
 *NON,chicken,d,n,MOT,26241740_26247290, ,NA
 *OLN,cups,n,n,MOT,26351690_26399440, ,NA
 *OLN,cheese,d,n,MOT,26406090_26462240, ,NA
@@ -222,10 +218,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *NON,carrot+sticks,n,n,MOT,26552540_26557890, ,NA
 *NON,olives,d,n,MOT,26552540_26557890, ,NA
 *NON,fenneled+beets,d,n,MOT,26552540_26557890, ,NA
-*NON,olives,q,n,MOT,26552540_26557890, ,NA
-*NON,salad,q,n,MOT,26552540_26557890, ,NA
-*NON,carrots,d,n,MOT,26552540_26557890, ,NA
-*NON,carrot+sticks,d,n,MOT,26552540_26557890, ,NA
+*NON,fenneled+beets,d,n,MOT,26552540_26557890, ,NA
 *NON,artichoke+hearts,d,n,MOT,26552540_26557890, ,NA
 *NON,beets,d,n,MOT,26641140_26646890, ,NA
 *NON,beets,d,n,MOT,26641140_26646890, ,NA

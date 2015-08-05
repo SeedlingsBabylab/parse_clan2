@@ -2315,7 +2315,7 @@
 %xdb:	average_dB="-43.01" peak_dB="-36.94"
 @Eg:	Pause 43
 @Bg:	Conversation 43
-*FAN:	&=w2_57 hands &=i_n_MOT . 1650030_1651140
+*FAN:	hands &=i_n_MOT&=w2_57 . 1650030_1651140
 %com:	|BC|43|9|0|AMF|NT|FI|
 %xdb:	average_dB="-30.27" peak_dB="-23.16"
 *TVN:	0 . 1651140_1651990
@@ -31855,7 +31855,7 @@
 %xdb:	average_dB="-20.50" peak_dB="-11.63"
 *OLN:	fishes &=i_y_MOT . 26202190_26241740
 %xdb:	average_dB="-20.82" peak_dB="-8.45"
-*NON:	chicken &=d_n_MOT chicken &=q_n_MOT chicken &=q_n_MOT chicken &=d_n_MOT chicken &=q_n_MOT chicken &=n_n_MOT chicken &=n_n_MOT chicken &=d_n_MOT chicken &=d_n_MOT chicken &=q_n_MOT chicken &=q_n_MOT chicken &=d_n_MOT chicken &=d_n_MOT chicken &=d_n_MOT . 26241740_26247290
+*NON:	chicken &=d_n_MOT chicken &=q_n_MOT chicken &=q_n_MOT chicken &=d_n_MOT chicken &=q_n_MOT chicken &=n_n_MOT chicken &=n_n_MOT chicken &=d_n_MOT chicken &=d_n_MOT chicken &=d_n_MOT . 26241740_26247290
 %xdb:	average_dB="-20.98" peak_dB="-15.86"
 *OLN:	0 . 26247290_26346140
 %xdb:	average_dB="-18.38" peak_dB="-8.36"
@@ -31885,7 +31885,7 @@
 %xdb:	average_dB="-20.02" peak_dB="-11.04"
 *NON:	0 . 26545240_26552540
 %xdb:	average_dB="-21.85" peak_dB="-17.28"
-*NON:	olives &=q_n_MOT salad &=q_n_MOT carrots &=d_n_MOT carrot+sticks &=n_n_MOT olives &=d_n_MOT fenneled+beets &=d_n_MOT olives &=q_n_MOT salad &=q_n_MOT carrots &=d_n_MOT carrot+sticks &=d_n_MOT artichoke+hearts &=d_n_MOT . 26552540_26557890
+*NON:	olives &=q_n_MOT salad &=q_n_MOT carrots &=d_n_MOT carrot+sticks &=n_n_MOT olives &=d_n_MOT fenneled+beets &=d_n_MOT fenneled+beets &=d_n_MOT artichoke+hearts &=d_n_MOT . 26552540_26557890
 %xdb:	average_dB="-21.56" peak_dB="-11.54"
 *OLN:	0 . 26557890_26605640
 %xdb:	average_dB="-19.22" peak_dB="-8.64"

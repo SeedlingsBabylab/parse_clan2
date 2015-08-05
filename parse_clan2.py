@@ -23,8 +23,11 @@ class Parser:
         re8='((?:[a-z][a-z0-9_]*))' # speaker
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(|)'+re6+'(|)'+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
+
         self.joined_num_regx = re.compile("(_[a-z]{3}\d+)", re.IGNORECASE | re.DOTALL)
+        self.joined_entry_wrdcount = re.compile("(_[a-z]{3}&=)", re.IGNORECASE | re.DOTALL)
 
         self.skipping = False
         self.begin_skip_start = None
@@ -110,10 +113,20 @@ class Parser:
 
                     entries = self.entry_regx.findall(line)
 
+                    # check for all the possible malformed entry types
+                    old_entries = self.old_entry_regx.findall(line)
                     joined_num = self.joined_num_regx.findall(line)
+                    joined_entry_wrdcount = self.joined_entry_wrdcount.findall(line)
 
                     if joined_num:
-                        showwarning("Malformed entry", "line# " +str(index) + "   " + str(joined_num))
+                        showwarning("Malformed entry", "line# " + str(index) + "   " + str(joined_num))
+                        return
+                    if old_entries:
+                        showwarning("Old style entry", "line# " + str(index))
+                        return
+                    if joined_entry_wrdcount:
+                        showwarning("Entry and word count joined", "line# " + str(index))
+
 
                     if entries:
                         if self.skipping:

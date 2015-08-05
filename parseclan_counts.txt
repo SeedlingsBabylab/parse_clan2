@@ -12,7 +12,7 @@
 1 bok+choy
 3 onesies
 1 bikey
-16 chicken
+12 chicken
 6 milk
 7 bananas
 3 play+mat
@@ -125,7 +125,7 @@
 1 diapers
 1 cart
 1 lotion
-2 carrot+sticks
+1 carrot+sticks
 1 cookie
 1 burp
 3 grapes
@@ -142,7 +142,7 @@
 1 pooch
 2 outfits
 1 keen
-1 fenneled+beets
+2 fenneled+beets
 1 pediatrician
 9 swing
 2 gardner
@@ -171,7 +171,7 @@
 1 hand+dryer
 4 turkey
 3 mountain
-3 olives
+2 olives
 1 eye
 4 monkey
 1 beef
@@ -211,7 +211,7 @@
 8 car+seat
 1 spray+bottle
 1 fur
-3 salad
+2 salad
 2 onesie
 1 car
 2 trapeze
@@ -233,7 +233,7 @@
 6 vest
 1 sea
 1 avacado
-8 carrots
+7 carrots
 1 purse
 4 eyes
 2 almond+milk
