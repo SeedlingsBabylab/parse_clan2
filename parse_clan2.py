@@ -17,9 +17,9 @@ class Parser:
         re2='(\\s+)'	            # whitespace
         re3='(&=)'	                # &=
         re4='(.)'	                # utterance_type
-        re5='(_)'	                # _
+        re5='(_+)'	                # _
         re6='(.)'	                # object_present
-        re7='(_)'	                # _
+        re7='(_+)'	                # _
         re8='((?:[a-z][a-z0-9_]*))' # speaker
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
@@ -28,6 +28,8 @@ class Parser:
 
         self.joined_num_regx = re.compile("(_[a-z]{3}\d+)", re.IGNORECASE | re.DOTALL)
         self.joined_entry_wrdcount = re.compile("(_[a-z]{3}&=)", re.IGNORECASE | re.DOTALL)
+
+        self.just_ampersand_regx = re.compile(re1+re2+'(&)'+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
 
         self.skipping = False
         self.begin_skip_start = None
@@ -117,17 +119,29 @@ class Parser:
                     old_entries = self.old_entry_regx.findall(line)
                     joined_num = self.joined_num_regx.findall(line)
                     joined_entry_wrdcount = self.joined_entry_wrdcount.findall(line)
+                    just_ampersand = self.just_ampersand_regx.findall(line)
 
+
+                    # e.g. - someword &=d_y_MOT0 .
                     if joined_num:
-                        showwarning("Malformed entry", "line# " + str(index) + "   " + str(joined_num))
+                        showwarning("Malformed entry", "line# " + str(index-1) + "   " + str(joined_num))
                         return
+
+                    # e.g. - someword &d|y|MOT
                     if old_entries:
-                        showwarning("Old style entry", "line# " + str(index))
+                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line# " + str(index-1))
                         return
+
+                    # e.g. -  someword &=d_y_MOT&=w4_50
                     if joined_entry_wrdcount:
-                        showwarning("Entry and word count joined", "line# " + str(index))
+                        showwarning("Entry and word count joined", "line# " + str(index-1))
+                        return
 
-
+                    # everything except the &= is formatted correctly
+                    if just_ampersand:
+                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line# " + str(index-1))
+                        return
+                    # correctly formatted entries
                     if entries:
                         if self.skipping:
                             print "\nObject word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
@@ -164,8 +178,34 @@ class Parser:
                     curr_interval[0] = int(interval[0])
                     curr_interval[1] = int(interval[1])
 
-                    print "multi_line + line: " + multi_line + line
                     entries = self.entry_regx.findall(multi_line + line)
+
+                    # check for all the possible malformed entry types
+                    old_entries = self.old_entry_regx.findall(line)
+                    joined_num = self.joined_num_regx.findall(line)
+                    joined_entry_wrdcount = self.joined_entry_wrdcount.findall(line)
+                    just_ampersand = self.just_ampersand_regx.findall(line)
+
+
+                    # e.g. - someword &=d_y_MOT0 .
+                    if joined_num:
+                        showwarning("Malformed entry", "line# " + str(index-1) + "   " + str(joined_num))
+                        return
+
+                    # e.g. - someword &d|y|MOT
+                    if old_entries:
+                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line# " + str(index-1))
+                        return
+
+                    # e.g. -  someword &=d_y_MOT&=w4_50
+                    if joined_entry_wrdcount:
+                        showwarning("Entry and word count joined", "line# " + str(index-1))
+                        return
+
+                    # everything except the &= is formatted correctly
+                    if just_ampersand:
+                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line# " + str(index-1))
+                        return
 
                     if entries:
                         if self.skipping:
