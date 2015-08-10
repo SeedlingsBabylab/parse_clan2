@@ -31,6 +31,10 @@ class Parser:
 
         self.just_ampersand_regx = re.compile(re1+re2+'(&)'+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
 
+        self.dash_not_underscore_all    = re.compile(re1+re2+re3+re4+'(-+)'+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
+        self.dash_not_underscore_first  = re.compile(re1+re2+re3+re4+'(-+)'+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.dash_not_underscore_second = re.compile(re1+re2+re3+re4+re5+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
+
         self.skipping = False
         self.begin_skip_start = None
         self.words = []
@@ -120,6 +124,9 @@ class Parser:
                     joined_num = self.joined_num_regx.findall(line)
                     joined_entry_wrdcount = self.joined_entry_wrdcount.findall(line)
                     just_ampersand = self.just_ampersand_regx.findall(line)
+                    dash_not_underscore_all = self.dash_not_underscore_all.findall(line)
+                    dash_not_underscore_first = self.dash_not_underscore_first.findall(line)
+                    dash_not_underscore_second = self.dash_not_underscore_second.findall(line)
 
 
                     # e.g. - someword &=d_y_MOT0 .
@@ -129,18 +136,27 @@ class Parser:
 
                     # e.g. - someword &d|y|MOT
                     if old_entries:
-                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line# " + str(index-1))
+                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line#: " + str(index-1))
                         return
 
                     # e.g. -  someword &=d_y_MOT&=w4_50
                     if joined_entry_wrdcount:
-                        showwarning("Entry and word count joined", "line# " + str(index-1))
+                        showwarning("Entry and word count joined", "line#: " + str(index-1))
                         return
 
                     # everything except the &= is formatted correctly
                     if just_ampersand:
-                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line# " + str(index-1))
+                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line#: " + str(index-1))
                         return
+
+                    # there was a "-" used instead of an "_"
+                    # (either both of them, or just first/second)
+                    if dash_not_underscore_all or\
+                       dash_not_underscore_first or\
+                       dash_not_underscore_second:
+                        showwarning("Dash in place of underscore", "\'-\' should be \'_\'    line#: " + str(index-1))
+
+
                     # correctly formatted entries
                     if entries:
                         if self.skipping:

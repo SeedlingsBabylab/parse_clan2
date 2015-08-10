@@ -12,4 +12,4 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,mug,q,n,MOT,527920_529380, ,NA
 *FAN,water,q,n,MOT,534900_535900, ,NA
 *FAN,blueberry,n,y,SIS,555500_556660, ,NA
-*FAN,blueberry,n,y,SIS,559850_560860, ,HW stop
+*FAN,blueberry,n,y,SIS,559850_560860, ,NA

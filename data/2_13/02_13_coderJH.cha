@@ -1773,7 +1773,7 @@
 %xdb:	average_dB="-36.84" peak_dB="-30.58"
 *TVN:	0 . 933260_934260
 %xdb:	average_dB="-38.94" peak_dB="-29.78"
-*FAN:	eyes &=q_y_MOT &=w5_05 . 934260_935480
+*FAN:	eyes &=q-y_MOT &=w5_05 . 934260_935480
 %com:	|RC|43|3|0|AIOCF|NT|FH|
 %xdb:	average_dB="-33.66" peak_dB="-25.54"
 *SIL:	0 . 935480_936280
@@ -10238,7 +10238,7 @@
 @Bg:	Pause 205
 *NOF:	0 . 5463840_5466730
 %xdb:	average_dB="-44.71" peak_dB="-30.15"
-*OLN:	garbage+truck &n_n_MOT 0 . 5466730_5467880
+*OLN:	garbage+truck &=n_n_MOT 0 . 5466730_5467880
 %xdb:	average_dB="-23.66" peak_dB="-9.32"
 *NOF:	0 . 5467880_5471400
 %xdb:	average_dB="-37.02" peak_dB="-22.35"
@@ -13225,7 +13225,7 @@
 %xdb:	average_dB="-51.09" peak_dB="-41.48"
 *FAN:	&=w0_00 . 6927220_6928230
 %xdb:	average_dB="-36.87" peak_dB="-25.67"
-*CXN:	bowl &=d_n_SIS milk &=d_n_SIS0 . 6928230_6929230
+*CXN:	bowl &=d_n_SIS milk &=d_n_SIS 0 . 6928230_6929230
 %com:	|RC|259|127|0|XIOCA|NT|FI|
 %xdb:	average_dB="-26.34" peak_dB="-18.20"
 *SIL:	0 . 6929230_6929830

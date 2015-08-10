@@ -1,9 +1,9 @@
 tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAF,tummy,d,n,MOT,923310_924350, ,NA
 *FAN,eyes,q,y,MOT,934260_935480, ,NA
-*OLN,ball,n,y,CHI,1031490_1032099, ,child phonology
+*OLN,ball,n,y,CHI,1031490_1032099, ,NA
 *MAF,ball,d,y,MOT,1032099_1033099, ,NA
-*OLF,ball,n,y,CHI,1034609_1035650, ,child phonology
+*OLF,ball,n,y,CHI,1034609_1035650, ,NA
 *SIL,ball,d,y,MOT,1035650_1036910, ,NA
 *FAF,ball,n,y,MOT,1037930_1038930, ,NA
 *CXF,ball,n,y,MOT,1039880_1040760, ,NA
@@ -35,7 +35,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAF,tractor,q,y,MOT,2612300_2613340, ,NA
 *FAF,tractor,q,y,MOT,2623220_2624220, ,NA
 *MAN,tractor,q,y,MOT,2638600_2639880, ,NA
-*OLN,ball,n,y,CHI,2660670_2661730, ,child's first word
+*OLN,ball,n,y,CHI,2660670_2661730, ,NA
 *OLF,ball,d,y,MOT,2661730_2664670, ,NA
 *OLF,tractor,n,y,MOT,2667270_2668210, ,NA
 *OLN,tractor,q,y,MOT,2669460_2670600, ,NA
@@ -174,6 +174,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,ball,q,y,MOT,5106190_5108230, ,NA
 *FAN,bottom,d,y,MOT,5158740_5159900, ,NA
 *FAN,door,i,y,MOT,5424480_5425530, ,NA
+*OLN,garbage+truck,n,n,MOT,5466730_5467880, ,NA
 *FAN,car,d,y,MOT,5515170_5516360, ,NA
 *OLN,diaper,d,n,MOT,5678940_5682310, ,NA
 *FAN,diaper,i,y,MOT,5726440_5728720, ,NA
@@ -199,6 +200,3 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,bowl,q,n,MOT,6920610_6923600, ,NA
 *FAN,glass,q,n,MOT,6920610_6923600, ,NA
 *FAN,milk,q,n,MOT,6920610_6923600, ,NA
-*CXN,bowl,d,n,SIS,6928230_6929230, ,NA
-*CXN,milk,d,n,SIS0,6928230_6929230, ,NA
-*CXN,bowl,n,n,SIS,6929830_6930900, ,NA
