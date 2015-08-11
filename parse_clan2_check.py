@@ -23,7 +23,15 @@ def parse_parseclan_output(path):
             parseclan_words.append(line[1].lower())
     print parseclan_words
 
+def print_usage():
+    print "USAGE:\n"
+    print "python parse_clan2_check.py clan_freq_output.txt parse_clan2_output.csv\n"
+
 if __name__ == "__main__":
+
+    if len(sys.argv) < 3:
+        print_usage()
+        sys.exit(0)
 
     parse_clan_count(sys.argv[1])
     parse_parseclan_output(sys.argv[2])
