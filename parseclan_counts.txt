@@ -252,7 +252,7 @@
 1 sweet+potato
 2 lemon
 5 shirt
-1 paw
+2 paw
 2 air
 2 sailboat
 1 nuts

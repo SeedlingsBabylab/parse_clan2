@@ -443,6 +443,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,blanky,n,n,MOT,34381210_34382410, ,NA
 *MAN,stroller,q,y,FAT,34599830_34600830, ,NA
 *MAN,paw,i,y,FAT,35183010_35184870, ,NA
+*TVN,paw,i,y,UKC,35185710_35186890, ,NA
 *MAN,hand,d,y,FAT,35214400_35215400, ,NA
 *MAN,doggy,q,y,FAT,37270800_37271800, ,NA
 *MAN,Baileys,q,n,UM1,37873180_37877430, ,NA

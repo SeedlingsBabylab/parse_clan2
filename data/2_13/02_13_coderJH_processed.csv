@@ -1,6 +1,5 @@
 tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAF,tummy,d,n,MOT,923310_924350, ,NA
-*FAN,eyes,q,y,MOT,934260_935480, ,NA
 *OLN,ball,n,y,CHI,1031490_1032099, ,NA
 *MAF,ball,d,y,MOT,1032099_1033099, ,NA
 *OLF,ball,n,y,CHI,1034609_1035650, ,NA
@@ -200,3 +199,6 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,bowl,q,n,MOT,6920610_6923600, ,NA
 *FAN,glass,q,n,MOT,6920610_6923600, ,NA
 *FAN,milk,q,n,MOT,6920610_6923600, ,NA
+*CXN,bowl,d,n,SIS,6928230_6929230, ,NA
+*CXN,milk,d,n,SIS,6928230_6929230, ,NA
+*CXN,bowl,n,n,SIS,6929830_6930900, ,NA

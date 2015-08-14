@@ -2315,7 +2315,7 @@
 %xdb:	average_dB="-43.01" peak_dB="-36.94"
 @Eg:	Pause 43
 @Bg:	Conversation 43
-*FAN:	hands &=i_n_MOT&=w2_57 . 1650030_1651140
+*FAN:	&=w2_57 hands &=i_n_MOT . 1650030_1651140
 %com:	|BC|43|9|0|AMF|NT|FI|
 %xdb:	average_dB="-30.27" peak_dB="-23.16"
 *TVN:	0 . 1651140_1651990
@@ -40692,7 +40692,7 @@
 *CXN:	0 . 35184870_35185710
 %com:	|RC|730|103|0|AIOCM|NT|FI|
 %xdb:	average_dB="-40.17" peak_dB="-34.44"
-*TVN:	0 . 35185710_35186890
+*TVN:	paw &=i_y_UKC . 35185710_35186890
 %xdb:	average_dB="-36.49" peak_dB="-28.68"
 *SIL:	0 . 35186890_35187950
 %xdb:	average_dB="-46.23" peak_dB="-40.67"

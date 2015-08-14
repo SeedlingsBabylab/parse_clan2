@@ -4,7 +4,9 @@ from tkMessageBox import showwarning
 
 import csv
 import re
+import os
 import collections
+
 
 class Parser:
 
@@ -12,6 +14,7 @@ class Parser:
 
         self.input_file = input_path
         self.output_file = input_path.replace(".cha", "_processed.csv")
+        self.error_file = input_path.replace(".cha", "_errors.txt")
 
         re1='((?:[a-z][a-z0-9_+]*))' # the word
         re2='(\\s+)'	            # whitespace
@@ -41,6 +44,9 @@ class Parser:
         self.words = []
         self.comments = []          # includes all the comments
         self.plain_comments = []    # not including subregion/silence comments
+
+        self.problems = []
+
         if not self.check_intervals():
             return
         self.parse()
@@ -132,37 +138,93 @@ class Parser:
 
                     # e.g. - someword &=d_y_MOT0 .
                     if joined_num:
-                        showwarning("Malformed entry", "line# " + str(index-1) + "   " + str(joined_num))
-                        return
+                        temp = [""] * len(joined_num)
+
+                        for entry_index, entry in enumerate(joined_num):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Joined Number and Speaker Code",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     # e.g. - someword &d|y|MOT
                     if old_entries:
-                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line#: " + str(index-1))
-                        return
+                        temp = [""] * len(old_entries)
+
+                        for entry_index, entry in enumerate(old_entries):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Old Format (.cex) Style Entry Used",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     # e.g. -  someword &=d_y_MOT&=w4_50
                     if joined_entry_wrdcount:
-                        showwarning("Entry and word count joined", "line#: " + str(index-1))
-                        return
+                        temp = [""] * len(joined_entry_wrdcount)
+
+                        for entry_index, entry in enumerate(joined_entry_wrdcount):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Entry and Word Count are Joined",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     # everything except the &= is formatted correctly
                     if just_ampersand:
-                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line#: " + str(index-1))
-                        return
+                        temp = [""] * len(just_ampersand)
+
+                        for entry_index, entry in enumerate(just_ampersand):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Ampersand Issue (\"&\" should be \"&=\")",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     # there was a "-" used instead of an "_"
                     # (either both of them, or just first/second)
-                    if dash_not_underscore_all or\
-                       dash_not_underscore_first or\
-                       dash_not_underscore_second:
-                        showwarning("Dash in place of underscore", "\'-\' should be \'_\'    line#: " + str(index-1))
+                    if dash_not_underscore_all:
+                        temp = [""] * len(dash_not_underscore_all)
 
+                        for entry_index, entry in enumerate(dash_not_underscore_all):
+                            for group in entry:
+                                temp[entry_index] += group
+
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if dash_not_underscore_first:
+                        temp = [""] * len(dash_not_underscore_first)
+
+                        for entry_index, entry in enumerate(dash_not_underscore_first):
+                            for group in entry:
+                                temp[entry_index] += group
+
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if dash_not_underscore_second:
+                        temp = [""] * len(dash_not_underscore_second)
+
+                        for entry_index, entry in enumerate(dash_not_underscore_second):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     # correctly formatted entries
                     if entries:
                         if self.skipping:
                             print "\nObject word was found in a skip region. Fix this in the .cha file. Line# " + str(index)
-                            #print "Begin skip starts at line# " + str(self.begin_skip_start)
                             print "line: " + line
                             continue
                         else:
@@ -181,9 +243,7 @@ class Parser:
                     interval_reg_result = self.interval_regx.search(line)
 
                     if interval_reg_result is None:
-                        #print "interval regx returned none. clan line: " + str(index)
                         multi_line += line
-                        #print multi_line
                         continue
 
                     prev_interval[0] = curr_interval[0]
@@ -202,27 +262,96 @@ class Parser:
                     joined_num = self.joined_num_regx.findall(line)
                     joined_entry_wrdcount = self.joined_entry_wrdcount.findall(line)
                     just_ampersand = self.just_ampersand_regx.findall(line)
-
+                    dash_not_underscore_all = self.dash_not_underscore_all.findall(line)
+                    dash_not_underscore_first = self.dash_not_underscore_first.findall(line)
+                    dash_not_underscore_second = self.dash_not_underscore_second.findall(line)
 
                     # e.g. - someword &=d_y_MOT0 .
                     if joined_num:
-                        showwarning("Malformed entry", "line# " + str(index-1) + "   " + str(joined_num))
-                        return
+                        temp = [""] * len(joined_num)
+
+                        for entry_index, entry in enumerate(joined_num):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Joined Number and Speaker Code",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
 
                     # e.g. - someword &d|y|MOT
                     if old_entries:
-                        showwarning("Found .cex formatted entry. Use the new .cha format.", "line# " + str(index-1))
-                        return
+                        temp = [""] * len(old_entries)
+
+                        for entry_index, entry in enumerate(old_entries):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Old Format (.cex) Style Entry Used",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
 
                     # e.g. -  someword &=d_y_MOT&=w4_50
                     if joined_entry_wrdcount:
-                        showwarning("Entry and word count joined", "line# " + str(index-1))
-                        return
+                        temp = [""] * len(joined_entry_wrdcount)
+
+                        for entry_index, entry in enumerate(joined_entry_wrdcount):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Entry and Word Count are Joined",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
 
                     # everything except the &= is formatted correctly
                     if just_ampersand:
-                        showwarning("Ampersand Issue","\'&\' should be \'&=\'     line# " + str(index-1))
-                        return
+                        temp = [""] * len(just_ampersand)
+
+                        for entry_index, entry in enumerate(just_ampersand):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Ampersand Issue (\"&\" should be \"&=\")",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+
+                    # there was a "-" used instead of an "_"
+                    # (either both of them, or just first/second)
+                    if dash_not_underscore_all:
+                        temp = [""] * len(dash_not_underscore_all)
+
+                        for entry_index, entry in enumerate(dash_not_underscore_all):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if dash_not_underscore_first:
+                        temp = [""] * len(dash_not_underscore_first)
+
+                        for entry_index, entry in dash_not_underscore_first:
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if dash_not_underscore_second:
+                        temp = [""] * len(dash_not_underscore_second)
+
+                        for entry_index, entry in enumerate(dash_not_underscore_second):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
 
                     if entries:
                         if self.skipping:
@@ -242,8 +371,11 @@ class Parser:
                     multi_line = "" # empty the mutiple line buffer
 
 
-        #print self.words
-        #print self.comments
+        if self.problems:
+            showwarning("Mistakes Found",
+                        "Fix the mistakes listed in the {} file"
+                        .format(os.path.split(self.error_file)[1]))
+            self.output_problems()
 
     def export(self):
 
@@ -304,6 +436,13 @@ class Parser:
                     else:
                         continue
             return True
+
+    def output_problems(self):
+        with open(self.error_file, "w") as error_file:
+            for error in self.problems:
+                for element in error:
+                    error_file.write(str(element) + "  ")
+                error_file.write("\n")
 
 if __name__ == "__main__":
 

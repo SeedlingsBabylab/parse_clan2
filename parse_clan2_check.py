@@ -12,7 +12,7 @@ def parse_clan_count(path):
         for raw_line in file:
             line = raw_line.split()
             clan_counts.append((int(line[0]), line[1].lower()))
-    print clan_counts
+    #print clan_counts
 
 
 def parse_parseclan_output(path):
@@ -21,7 +21,7 @@ def parse_parseclan_output(path):
         for raw_line in file:
             line = raw_line.split(",")
             parseclan_words.append(line[1].lower())
-    print parseclan_words
+    #print parseclan_words
 
 def print_usage():
     print "USAGE:\n"
