@@ -1773,7 +1773,7 @@
 %xdb:	average_dB="-36.84" peak_dB="-30.58"
 *TVN:	0 . 933260_934260
 %xdb:	average_dB="-38.94" peak_dB="-29.78"
-*FAN:	eyes &=q-y_MOT &=w5_05 . 934260_935480
+*FAN:	eyes &=q_y_MOT&=w5_05 . 934260_935480
 %com:	|RC|43|3|0|AIOCF|NT|FH|
 %xdb:	average_dB="-33.66" peak_dB="-25.54"
 *SIL:	0 . 935480_936280

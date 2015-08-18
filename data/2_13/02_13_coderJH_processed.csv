@@ -1,4 +1,5 @@
 tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
+*FAN,eyes,q,y,MOT,934260_935480, ,NA
 *OLN,ball,n,y,CHI,1031490_1032099, ,NA
 *MAF,ball,d,y,MOT,1032099_1033099, ,NA
 *OLF,ball,n,y,CHI,1034609_1035650, ,NA

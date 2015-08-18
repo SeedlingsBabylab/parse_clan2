@@ -1,6 +1,6 @@
 Ampersand Issue ("&" should be "&=")  line#: 1748  ['923310', '924350']  ['tummy &n_n_MOT']  
 
-Dash Used in Place of Underscore  line#: 1774  ['934260', '935480']  ['eyes &=q-y_MOT']  
+Entry and Word Count are Joined  line#: 1774  ['934260', '935480']  ['y_MOT&=w']  
 
 Joined Number and Speaker Code  line#: 2657  ['1507280', '1508280']  ['y_AD10']  
 
