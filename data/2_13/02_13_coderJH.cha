@@ -1747,7 +1747,7 @@
 %xdb:	average_dB="-35.58" peak_dB="-27.03"
 *OLF:	0 . 922260_923310
 %xdb:	average_dB="-35.78" peak_dB="-27.17"
-*FAF:	tummy &=d_n_MOT 0 . 923310_924350
+*FAF:	tummy &n_n_MOT 0 . 923310_924350
 %xdb:	average_dB="-38.61" peak_dB="-27.22"
 *SIL:	0 . 924350_925150
 %xdb:	average_dB="-45.64" peak_dB="-30.65"
@@ -2656,7 +2656,7 @@
 %xdb:	average_dB="-53.11" peak_dB="-44.28"
 *FAF:	0 . 1506480_1507280
 %xdb:	average_dB="-45.75" peak_dB="-36.36"
-*TVF:	cereal &=d_y_MOT 0 . 1507280_1508280
+*TVF:	cereal &=d_y_AD10 . 1507280_1508280
 %xdb:	average_dB="-48.09" peak_dB="-38.36"
 *SIL:	0 . 1508280_1509140
 %xdb:	average_dB="-53.04" peak_dB="-40.61"

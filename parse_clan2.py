@@ -23,21 +23,47 @@ class Parser:
         re5='(_+)'	                # _
         re6='(.)'	                # object_present
         re7='(_+)'	                # _
-        re8='((?:[a-z][a-z0-9_]*))' # speaker
+        re8='((?:[a-z][a-z0-9]*))' # speaker
 
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
         self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
-        self.joined_num_regx = re.compile("(_[a-z]{3}\d+)", re.IGNORECASE | re.DOTALL)
+        self.joined_num_regx = re.compile("([yn]_[a-z0-9]{3}\d+)", re.IGNORECASE | re.DOTALL)
         self.joined_entry_wrdcount = re.compile("(_[a-z]{3}&=)", re.IGNORECASE | re.DOTALL)
 
-        self.just_ampersand_regx = re.compile(re1+re2+'(&)'+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.just_ampersand_regx = re.compile(re1+re2+'(&)'+'([qdiursn])'+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
 
+        # someword &=d-y-MOT
         self.dash_not_underscore_all    = re.compile(re1+re2+re3+re4+'(-+)'+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
+        # someword &=d-y_MOT
         self.dash_not_underscore_first  = re.compile(re1+re2+re3+re4+'(-+)'+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        # someword &=d_y-MOT
         self.dash_not_underscore_second = re.compile(re1+re2+re3+re4+re5+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
 
+        re9='((?:[a-z][a-z]+))'	# Word 1
+        re10='(\\s+)'	# White Space 1
+        re11='(0)'	# Any Single Character 1
+        re12='(\\s+)'	# White Space 2
+        re13='(.)'	# Any Single Character 2
+
+        # tummy 0 .
+        self.missing_code_just_word = re.compile('(\\s+)'+re9+re10+re11+re12+re13,re.IGNORECASE|re.DOTALL)
+        # tummy 0.
+        self.missing_code_just_word_zero_period = re.compile('(\\s+)'+re9+re10+'(0.)'+re12+re13,re.IGNORECASE|re.DOTALL)
+        # tummy &=w
+        self.missing_code_just_word_andcount = re.compile('(\\s+)'+re9+re10+'(&=w)',re.IGNORECASE|re.DOTALL)
+
+
+        self.one_missing_code_first = re.compile(re1+re2+re3+re5+'([yn])'+re7+re8, re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_second = re.compile(re1+re2+re3+re4+re5+re7+re8, re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_third = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(\\s+)', re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_third_joined_count = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(&=w)', re.IGNORECASE|re.DOTALL)
+
+        self.missing_underscore_first = re.compile(re3+'([qdiursn])'+'([yn])'+re5+re8, re.IGNORECASE|re.DOTALL)
+        self.missing_underscore_second = re.compile(re3+'([qdiursn])'+re5+'([yn])'+re8, re.IGNORECASE|re.DOTALL)
+
+        #self.zero_joined_to_speaker =
 
         self.skipping = False
         self.begin_skip_start = None
@@ -134,6 +160,15 @@ class Parser:
                     dash_not_underscore_all = self.dash_not_underscore_all.findall(line)
                     dash_not_underscore_first = self.dash_not_underscore_first.findall(line)
                     dash_not_underscore_second = self.dash_not_underscore_second.findall(line)
+                    missing_code_just_word = self.missing_code_just_word.findall(line)
+                    missing_code_just_word_zero_period = self.missing_code_just_word_zero_period.findall(line)
+                    missing_code_just_word_andcount = self.missing_code_just_word_andcount.findall(line)
+                    one_missing_code_first = self.one_missing_code_first.findall(line)
+                    one_missing_code_second = self.one_missing_code_second.findall(line)
+                    one_missing_code_third = self.one_missing_code_third.findall(line)
+                    one_missing_code_third_joined_count = self.one_missing_code_third_joined_count.findall(line)
+                    missing_underscore_first = self.missing_underscore_first.findall(line)
+                    missing_underscore_second = self.missing_underscore_second.findall(line)
 
 
                     # e.g. - someword &=d_y_MOT0 .
@@ -217,6 +252,107 @@ class Parser:
                             for group in entry:
                                 temp[entry_index] += group
                         self.problems.append(("Dash Used in Place of Underscore",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if missing_code_just_word:
+                        temp = [""] * len(missing_code_just_word)
+
+                        for entry_index, entry in enumerate(missing_code_just_word):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing codes: &=x_x_XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if missing_code_just_word_zero_period:
+                        temp = [""] * len(missing_code_just_word_zero_period)
+
+                        for entry_index, entry in enumerate(missing_code_just_word_zero_period):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing codes: &=x_x_XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+
+                    if missing_code_just_word_andcount:
+                        temp = [""] * len(missing_code_just_word_andcount)
+
+                        for entry_index, entry in enumerate(missing_code_just_word_andcount):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing code: &=x_x_XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if one_missing_code_first:
+                        temp = [""] * len(one_missing_code_first)
+
+                        for entry_index, entry in enumerate(one_missing_code_first):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the first code: &=_x_XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if one_missing_code_second:
+                        temp = [""] * len(one_missing_code_second)
+
+                        for entry_index, entry in enumerate(one_missing_code_second):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the second code: &=x__XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if one_missing_code_third:
+                        temp = [""] * len(one_missing_code_third)
+
+                        for entry_index, entry in enumerate(one_missing_code_third):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the third code: &=x_x_",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if one_missing_code_third_joined_count:
+                        temp = [""] * len(one_missing_code_third_joined_count)
+
+                        for entry_index, entry in enumerate(one_missing_code_third_joined_count):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the third code and joined with word count: &=x_x_&=w",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+
+                    if missing_underscore_first:
+                        temp = [""] * len(missing_underscore_first)
+
+                        for entry_index, entry in enumerate(missing_underscore_first):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the first underscore: &=xx_XXX",
+                                              "line#: {}".format(index-1),
+                                              interval,
+                                              temp))
+
+                    if missing_underscore_second:
+                        temp = [""] * len(missing_underscore_second)
+
+                        for entry_index, entry in enumerate(missing_underscore_second):
+                            for group in entry:
+                                temp[entry_index] += group
+                        self.problems.append(("Missing the second underscore: &=x_xXXX",
                                               "line#: {}".format(index-1),
                                               interval,
                                               temp))
@@ -442,7 +578,7 @@ class Parser:
             for error in self.problems:
                 for element in error:
                     error_file.write(str(element) + "  ")
-                error_file.write("\n")
+                error_file.write("\n\n")
 
 if __name__ == "__main__":
 
