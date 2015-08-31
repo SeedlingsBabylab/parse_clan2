@@ -519,7 +519,7 @@ class Parser:
         if comment_queue:
             curr_comment = comment_queue.popleft()
         curr_comment = ("no comment", 0, 0)
-        with open(self.output_file, "w") as output:
+        with open(self.output_file, "wb") as output:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","timestamp","basic_level","comment"])
             for entry in self.words:
