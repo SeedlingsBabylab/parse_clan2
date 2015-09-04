@@ -10,11 +10,19 @@ import collections
 
 class Parser:
 
-    def __init__(self, input_path):
+    def __init__(self, input_path, output=None):
 
         self.input_file = input_path
-        self.output_file = input_path.replace(".cha", "_processed.csv")
-        self.error_file = input_path.replace(".cha", "_errors.txt")
+        if output == None:
+            self.output_file = input_path.replace(".cha", "_processed.csv")
+            self.error_file = input_path.replace(".cha", "_errors.txt")
+        else:
+            processed_path = os.path.split(input_path)[1].replace(".cha", "_processed.csv")
+            error_path = os.path.split(input_path)[1].replace(".cha", "_errors.txt")
+            #self.output_file = os.path.join(output, name)
+            print os.path.join(output, processed_path)
+            self.output_file = os.path.join(output, processed_path)
+            self.error_file = os.path.join(output, error_path)
 
         re1='((?:[a-z][a-z0-9_+]*))' # the word
         re2='(\\s+)'	            # whitespace
