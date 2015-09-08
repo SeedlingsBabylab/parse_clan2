@@ -526,12 +526,18 @@ class Parser:
         comment_queue = collections.deque(self.plain_comments)
         if comment_queue:
             curr_comment = comment_queue.popleft()
-        curr_comment = ("no comment", 0, 0)
+        else:
+            curr_comment = ("no comment", 0, 0)
         with open(self.output_file, "wb") as output:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","timestamp","basic_level","comment"])
             for entry in self.words:
                 #print entry
+
+                if comment_queue:
+                    if entry[5] > curr_comment[1]:
+                        curr_comment = comment_queue.popleft()
+
                 if entry[5] == curr_comment[1]:
                     writer.writerow([entry[0],
                                     entry[1],
@@ -542,8 +548,6 @@ class Parser:
                                     " ",
                                     curr_comment[0]])
 
-                    if comment_queue:
-                        curr_comment = comment_queue.popleft()
                 else:
                     writer.writerow([entry[0],
                                     entry[1],

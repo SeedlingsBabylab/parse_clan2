@@ -8,7 +8,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,mouth,q,n,MOT,2714520_2716520, ,NA
 *FAN,mouth,i,n,MOT,2714520_2716520, ,NA
 *OLF,mouth,i,n,MOT,2719300_2720760, ,NA
-*MAN,Slip+n+slide,d,n,FAT,2739650_2743010, ,NA
+*MAN,Slip+n+slide,d,n,FAT,2739650_2743010, ,inflatable water slide
 *SIL,pool,d,n,FAT,2743010_2743980, ,NA
 *FAN,laundry,i,n,MOT,2983210_2984210, ,NA
 *CXN,fox,d,n,FAT,3035410_3036010, ,NA
@@ -140,13 +140,13 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *OLN,dress,s,n,SI1,36089410_36103820, ,NA
 *OLN,lips,s,n,SI1,36089410_36103820, ,NA
 *OLN,cheeks,s,n,SI1,36089410_36103820, ,NA
-*OLN,pants,d,n,MOT,36143030_36159220, ,NA
-*OLN,school,q,n,BR2,36143030_36159220, ,NA
+*OLN,pants,d,n,MOT,36143030_36159220, ,end make up region
+*OLN,school,q,n,BR2,36143030_36159220, ,end make up region
 *FAN,cheese,d,n,MOT,39598520_39600860, ,NA
 *CHN,cheese,d,n,MOT,39601660_39602950, ,NA
 *CHN,crackers,d,n,MOT,39601660_39602950, ,NA
 *CHN,cheese,d,n,MOT,39604270_39605290, ,NA
-*OLN,crackers,d,n,MOT,39605290_39606570, ,NA
+*OLN,crackers,d,n,MOT,39605290_39606570, ,mom pronouncing these words strangely
 *TVN,eyes,d,y,MOT,39650150_39650950, ,NA
 *OLN,hands,d,y,MOT,39886800_39887990, ,NA
 *CHN,feet,d,y,MOT,39887990_39888590, ,NA
