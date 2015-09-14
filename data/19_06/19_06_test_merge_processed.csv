@@ -11,8 +11,8 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,mouth,q,y,MOT,126370_127370, ,NA
 *FAN,hand,n,y,FAT,128410_129960, ,NA
 *FAN,book,q,y,MOT,160040_161860, ,NA
-*FAN,book,d,y,MOT,162760_165120, ,NA
-*FAN,Sweet+dreams,d,y,MOT,162760_165120, ,NA
+*FAN,book,d,y,MOT,162760_165120, ,book:
+*FAN,Sweet+dreams,d,y,MOT,162760_165120, ,book:
 *FAN,kitty,r,y,MOT,167210_172000, ,NA
 *FAN,bunny,r,y,MOT,174370_176380, ,NA
 *FAN,bunny+rabbit,q,y,MOT,180400_181700, ,NA
@@ -54,7 +54,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *CXN,kangaroo,d,y,MOT,913200_914000, ,NA
 *FAF,parrot,d,y,MOT,915900_916700, ,NA
 *FAN,bed,d,y,MOT,937870_941590, ,NA
-*FAN,Magenta,d,y,MOT,948700_950160, ,NA
+*FAN,Magenta,d,y,MOT,948700_950160, ,toy's name?
 *CXN,bathroom,d,n,MOT,1098760_1100300, ,NA
 *FAN,towel,d,n,MOT,1101880_1102680, ,NA
 *FAN,milk,d,n,MOT,1132540_1134940, ,NA
@@ -103,9 +103,9 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *CXN,teeth,d,n,MOT,3133970_3135570, ,NA
 *CHN,vest,d,y,MOT,3388520_3388840, ,NA
 *FAN,socks,d,n,MOT,3399550_3401010, ,NA
-*OLN,tops,d,n,MOT,3448030_3451540, ,NA
-*OLN,tops,d,n,MOT,3463620_3464830, ,NA
-*FAN,baby,d,y,MOT,3503680_3505570, ,NA
+*OLN,tops,d,n,MOT,3448030_3451540, ,tops like shirts
+*OLN,tops,d,n,MOT,3463620_3464830, ,tops like shirts
+*FAN,baby,d,y,MOT,3503680_3505570, ,include?
 *FAN,cereal,d,n,MOT,3544620_3546150, ,NA
 *OLN,cereal,d,y,MOT,3620920_3626470, ,NA
 *FAN,kitten,i,y,MOT,3754420_3755460, ,NA
@@ -122,7 +122,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *MAN,kiwi,d,n,FAT,4191570_4193750, ,NA
 *MAN,face,d,n,FAT,4191570_4193750, ,NA
 *MAN,face,d,n,FAT,4197290_4198290, ,NA
-*FAN,pie+pie,d,y,FAT,4200690_4201370, ,NA
+*FAN,pie+pie,d,y,FAT,4200690_4201370, ,not sure what this refers to
 *MAN,theatre,d,n,FAT,4236910_4238550, ,NA
 *MAN,home+office,d,n,FAT,4257270_4259000, ,NA
 *FAN,diapee,d,n,MOT,4383130_4384160, ,NA
@@ -131,7 +131,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAF,tissue,q,n,MOT,4664030_4665080, ,NA
 *FAN,tissue,q,n,MOT,4669500_4670590, ,NA
 *OLN,pickle,q,n,FAT,4728160_4732010, ,NA
-*FAN,pickle,q,n,MOT,4732010_4734000, ,NA
+*FAN,pickle,q,n,MOT,4732010_4734000, ,"not pickle food, pickle situation"
 *FAN,pickle,s,n,MOT,4735220_4737020, ,NA
 *FAN,pickle,s,n,MOT,4735220_4737020, ,NA
 *FAN,pickle,s,n,MOT,4735220_4737020, ,NA
@@ -183,7 +183,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,cellphone,d,n,MOT,12476990_12478990, ,NA
 *FAN,house,q,n,MOT,12513660_12516100, ,NA
 *FAN,tray,d,y,MOT,12553980_12556430, ,NA
-*FAN,hannies,q,y,MOT,12557590_12563490, ,NA
+*FAN,hannies,q,y,MOT,12557590_12563490, ,hands?
 *FAN,bib,q,n,MOT,12576850_12579210, ,NA
 *FAN,bib,q,n,MOT,12576850_12579210, ,NA
 *FAN,bib,q,n,MOT,12579810_12580960, ,NA
@@ -232,7 +232,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *OLN,pants,d,y,MOT,13532850_13533870, ,NA
 *OLN,hands,q,y,MOT,13624600_13626790, ,NA
 *FAN,face,d,y,MOT,13626790_13628860, ,NA
-*FAN,slime,d,y,MOT,13633980_13635450, ,NA
+*FAN,slime,d,y,MOT,13633980_13635450, ,"food on face, peas"
 *OLN,face,d,n,MOT,13637260_13640790, ,NA
 *CHN,towel,d,n,MOT,13640790_13642200, ,NA
 *FAN,peas,q,n,MOT,13669970_13671260, ,NA
@@ -320,7 +320,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAF,blocks,q,y,MOT,16110600_16111600, ,NA
 *OLF,blocks,d,y,MOT,16115960_16116770, ,NA
 *FAN,cups,q,y,MOT,16214400_16215400, ,NA
-*CXN,spit+up,q,y,MOT,16485650_16486870, ,NA
+*CXN,spit+up,q,y,MOT,16485650_16486870, ,object as verb
 *OLN,peas,d,n,MOT,16486870_16492350, ,NA
 *FAN,folder,q,y,MOT,16661770_16662900, ,NA
 *OLN,cup,d,y,MOT,16726310_16727840, ,NA
@@ -340,7 +340,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,book,d,y,MOT,17382140_17383650, ,NA
 *FAN,dryer,d,n,MOT,17386210_17389150, ,NA
 *OLN,floor,q,y,MOT,17452480_17453280, ,NA
-*SIL,pie+pie,q,y,MOT,17494440_17496980, ,NA
+*SIL,pie+pie,q,y,MOT,17494440_17496980, ,don't know what toy this is
 *CXN,page,d,y,MOT,17529930_17530890, ,NA
 *CXF,thumby,d,y,MOT,17565650_17566970, ,NA
 *CXN,spit+up,d,n,MOT,17569600_17570530, ,NA
@@ -363,7 +363,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *CXN,Desitin,d,y,MOT,17838630_17840190, ,NA
 *CXN,bottom,d,y,MOT,17840790_17842050, ,NA
 *FAN,diaper,d,y,MOT,17863730_17867140, ,NA
-*CXN,tab,d,y,MOT,17870920_17872030, ,NA
+*CXN,tab,d,y,MOT,17870920_17872030, ,tab on the diaper
 *FAN,diaper,q,y,MOT,17877200_17879440, ,NA
 *FAN,pants,q,n,MOT,17880790_17883900, ,NA
 *SIL,pants,d,n,MOT,17883900_17884710, ,NA
@@ -608,7 +608,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,socky,q,n,GRM,28420510_28421590, ,NA
 *FAN,sock,q,n,GRM,28422620_28424580, ,NA
 *OLN,sock,q,n,GRM,28430030_28431020, ,NA
-*FAN,piggies,i,y,GRM,28443070_28444130, ,NA
+*FAN,piggies,i,y,GRM,28443070_28444130, ,piggies as toes
 *FAN,piggies,i,y,GRM,28445130_28446130, ,NA
 *FAN,sockies,d,y,GRM,28451290_28453310, ,NA
 *FAN,pants,d,y,GRM,28454730_28455770, ,NA
@@ -733,15 +733,15 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,toes,d,y,MOT,35795560_35797030, ,NA
 *FAN,toes,d,y,GRM,35807420_35809500, ,NA
 *CXN,earrings,d,y,GRM,35809500_35811010, ,NA
-*FAN,stone,d,y,GRM,35816650_35824300, ,NA
-*FAN,face,d,y,GRM,35816650_35824300, ,NA
+*FAN,stone,d,y,GRM,35816650_35824300, ,earrings
+*FAN,face,d,y,GRM,35816650_35824300, ,earrings
 *FAN,hair,d,n,MOT,35843160_35844380, ,NA
 *FAN,eye,d,y,MOT,35843160_35844380, ,NA
 *FAN,wipe,d,y,MOT,35933250_35934270, ,NA
 *FAN,piggy+bank,q,y,MOT,35947670_35949240, ,NA
 *FAN,piggy+bank,d,y,MOT,35950440_35953220, ,NA
 *FAN,bank,d,y,MOT,35950440_35953220, ,NA
-*FAN,bank,d,y,MOT,36000990_36001990, ,NA
+*FAN,bank,d,y,MOT,36000990_36001990, ,piggy bank
 *MAN,rice+krispies,d,n,GRM,36110670_36111870, ,NA
 *FAN,dress,d,Y,MOT,36111870_36116180, ,NA
 *FAN,dress,d,y,MOT,36126080_36127380, ,NA
@@ -784,8 +784,8 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,window,d,n,GRM,36946750_36951750, ,NA
 *TVF,heel,d,y,GRM,36951750_36952760, ,NA
 *TVF,toe,d,y,GRM,36951750_36952760, ,NA
-*FAN,heel,d,y,GRM,36952760_36954160, ,NA
-*FAN,toe,d,y,GRM,36952760_36954160, ,NA
+*FAN,heel,d,y,GRM,36952760_36954160, ,reading or just talking?
+*FAN,toe,d,y,GRM,36952760_36954160, ,reading or just talking?
 *FAN,baby,n,y,GRM,36959520_36962600, ,NA
 *FAN,baby+doll,n,y,GRM,36963220_36964340, ,NA
 *FAN,baby,n,y,GRM,36965250_36966250, ,NA
@@ -832,7 +832,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *OLN,yogurt,d,n,MOT,38418240_38419050, ,NA
 *FAN,yogurt,q,n,MOT,38419050_38420500, ,NA
 *OLN,yogurt,d,n,MOT,38427250_38429720, ,NA
-*FAN,plates,d,n,MOT,38537600_38538940, ,NA
+*FAN,plates,d,n,MOT,38537600_38538940, ,license plate
 *OLN,mail,d,y,MOT,38543830_38544880, ,NA
 *CXN,envelopes,d,y,MOT,38546970_38548010, ,NA
 *NON,book,q,y,MOT,38640340_38645890, ,NA
@@ -850,7 +850,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *FAN,blocks,d,y,MOT,39860550_39862320, ,NA
 *FAN,blocks,i,y,MOT,39895870_39896870, ,NA
 *OLN,two,d,y,MOT,39913900_39914880, ,NA
-*FAN,nine,d,y,MOT,39914880_39917480, ,NA
+*FAN,nine,d,y,MOT,39914880_39917480, ,blocks
 *OLN,eight,d,y,MOT,39919120_39921750, ,NA
 *NOF,one,d,y,MOT,39924360_39925510, ,NA
 *SIL,ten,n,y,MOT,39926360_39927220, ,NA
@@ -919,7 +919,7 @@ tier,word,utterance_type,object_present,speaker,timestamp,basic_level,comment
 *MAN,forehead,d,y,FAT,41059800_41060800, ,NA
 *FAN,peas,d,n,FAT,41060800_41062810, ,NA
 *FAN,forehead,d,y,FAT,41060800_41062810, ,NA
-*FAN,orange,q,y,MOT,41107750_41109630, ,NA
+*FAN,orange,q,y,MOT,41107750_41109630, ,not sure if this is food
 *FAN,bed,q,n,MOT,41132850_41135930, ,NA
 *MAN,sweet+potatoes,d,y,MOT,41165260_41166380, ,NA
 *FAN,sweet+potatoes,i,y,MOT,41175270_41177690, ,NA

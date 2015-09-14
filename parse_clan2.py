@@ -99,11 +99,12 @@ class Parser:
 
                 if (line.startswith("%com:") and ("|" not in line)):
                     if "begin skip" in line:
-                        print "Begin skip found in line# " + str(index) + "\n"
+                        print "Begin skip found in line# " + str(index) #+ "\n"
                         self.skipping = True
                         self.begin_skip_start = index
                         continue
                     if "end skip" in line:
+                        print "End skip found in line# " + str(index) + "\n"
                         self.skipping = False
                         self.begin_skip_start = None
                         continue
@@ -116,11 +117,12 @@ class Parser:
 
                 if (line.startswith("%xcom:")) and ("|" not in line):
                     if "begin skip" in line:
-                        print "Begin skip starts at line# " + str(index) + "\n"
+                        print "Begin skip starts at line# " + str(index) #+ "\n"
                         self.skipping = True
                         self.begin_skip_start = index
                         continue
                     if "end skip" in line:
+                        print "End skip found in line# " + str(index) + "\n"
                         #print "Found *end skip*"
                         self.skipping = False
                         self.begin_skip_start = None
@@ -557,6 +559,8 @@ class Parser:
                                     "{}_{}".format(entry[5], entry[6]),
                                     " ",
                                     "NA"])
+
+        print "\n\nTotal # of words: {}\n".format(len(self.words))
 
     def filter_comments(self):
         """
