@@ -13,9 +13,11 @@ class Parser:
     def __init__(self, input_path, output=None):
 
         self.input_file = input_path
+        # output == None means we're being called from parse_clan2 main
         if output == None:
             self.output_file = input_path.replace(".cha", "_processed.csv")
             self.error_file = input_path.replace(".cha", "_errors.txt")
+        # otherwise, Parser object is being constructed from an external source
         else:
             processed_path = os.path.split(input_path)[1].replace(".cha", "_processed.csv")
             error_path = os.path.split(input_path)[1].replace(".cha", "_errors.txt")
@@ -24,6 +26,7 @@ class Parser:
             self.output_file = os.path.join(output, processed_path)
             self.error_file = os.path.join(output, error_path)
 
+        # correct regex for annotations
         re1='((?:[a-z][a-z0-9_+]*))' # the word
         re2='(\\s+)'	            # whitespace
         re3='(&=)'	                # &=
@@ -33,6 +36,7 @@ class Parser:
         re7='(_+)'	                # _
         re8='((?:[a-z][a-z0-9]*))' # speaker
 
+        # incorrect regexes (for typos and formatting issues)
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
         self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
@@ -71,7 +75,6 @@ class Parser:
         self.missing_underscore_first = re.compile(re3+'([qdiursn])'+'([yn])'+re5+re8, re.IGNORECASE|re.DOTALL)
         self.missing_underscore_second = re.compile(re3+'([qdiursn])'+re5+'([yn])'+re8, re.IGNORECASE|re.DOTALL)
 
-        #self.zero_joined_to_speaker =
 
         self.skipping = False
         self.begin_skip_start = None
@@ -79,10 +82,17 @@ class Parser:
         self.comments = []          # includes all the comments
         self.plain_comments = []    # not including subregion/silence comments
 
+        # list of tuples representing problems that were found.
+        # represented as:
+        #
+        #       ("Description of problem: ...", interval, problem_entry)
         self.problems = []
 
+        # check_intervals() returns false if there was a problem,
+        # so we'll break from parsing and not go any further
         if not self.check_intervals():
             return
+
         self.parse()
         self.filter_comments()
         self.export()
@@ -160,6 +170,7 @@ class Parser:
                     curr_interval[0] = int(interval[0])
                     curr_interval[1] = int(interval[1])
 
+                    # find correctly formatted entries
                     entries = self.entry_regx.findall(line)
 
                     # check for all the possible malformed entry types
@@ -385,6 +396,7 @@ class Parser:
 
                     last_line = line
 
+                # intervals spanning more than 1 line start with a tab (\t)
                 if line.startswith("\t"):
                     interval_reg_result = self.interval_regx.search(line)
 
@@ -529,6 +541,7 @@ class Parser:
         if comment_queue:
             curr_comment = comment_queue.popleft()
         else:
+            # if there are no comments, just set a dummy variable
             curr_comment = ("no comment", 0, 0)
         with open(self.output_file, "wb") as output:
             writer = csv.writer(output)
@@ -536,6 +549,9 @@ class Parser:
             for entry in self.words:
                 #print entry
 
+                # check to make sure there are comments left on the queue
+                # If the current interval has passed the current comment interval,
+                # pop the next comment off the queue.
                 if comment_queue:
                     if entry[5] > curr_comment[1]:
                         curr_comment = comment_queue.popleft()
