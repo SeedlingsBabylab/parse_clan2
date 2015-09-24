@@ -1,6 +1,6 @@
 # parse_clan2
 
-This script parses .cha files and produces a csv file as output. This output will have this form:
+This script parses .cha files and produces a csv file as output. The output will have this form:
 
 
 tier  | word     | utterance_type | object_present | speaker | timestamp       | basic_level | comment
