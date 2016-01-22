@@ -75,11 +75,14 @@ class Parser:
         self.missing_underscore_first = re.compile(re3+'([qdiursn])'+'([yn])'+re5+re8, re.IGNORECASE|re.DOTALL)
         self.missing_underscore_second = re.compile(re3+'([qdiursn])'+re5+'([yn])'+re8, re.IGNORECASE|re.DOTALL)
 
+        #self.scrub_regx = re.compile()
 
         self.skipping = False
         self.begin_skip_start = None
         self.words = []
         self.comments = []          # includes all the comments
+        self.curr_personal_block = None
+        self.personal_info_groups = []
         self.plain_comments = []    # not including subregion/silence comments
 
         # list of tuples representing problems that were found.
@@ -104,6 +107,11 @@ class Parser:
         prev_interval = [None, None]
         curr_interval = [None, None]
 
+        inside_personal_block = False
+
+        personal_info_com_start = None
+        personal_info_com_end = None
+
         with open(self.input_file, "rU") as input:
             for index, line in enumerate(input):
 
@@ -118,6 +126,13 @@ class Parser:
                         self.skipping = False
                         self.begin_skip_start = None
                         continue
+                    if "personal" in line or "private" in line:
+                        inside_personal_block = True
+                        self.check_personal_info_comment(line, index, curr_interval)
+                    if "end personal" in line:
+                        inside_personal_block = False
+                        self.personal_info_groups.append(self.curr_personal_block)
+
                     # get rid of quotation marks, %com's and newlines
                     comment = line.replace("%com:\t", "")\
                                   .replace("\"", "")\
@@ -137,6 +152,8 @@ class Parser:
                         self.skipping = False
                         self.begin_skip_start = None
                         continue
+                    if "personal" in line or "private" in line:
+                        inside_personal_block = True
                     # get rid of quotation marks, %xcom's and newlines
                     comment = line.replace("%xcom:\t", "")\
                                   .replace("\"", "")\
@@ -191,6 +208,9 @@ class Parser:
                     missing_underscore_first = self.missing_underscore_first.findall(line)
                     missing_underscore_second = self.missing_underscore_second.findall(line)
 
+
+                    if line.startswith("*SCR:"):
+                        self.parse_scrub_tier(line, index, interval)
 
                     # e.g. - someword &=d_y_MOT0 .
                     if joined_num:
@@ -578,6 +598,9 @@ class Parser:
 
         print "\n\nTotal # of words: {}\n".format(len(self.words))
 
+
+        #print self.personal_info_groups
+
     def filter_comments(self):
         """
         Filter out all the subregion and silence comments,
@@ -612,6 +635,46 @@ class Parser:
                     error_file.write(str(element) + "  ")
                 error_file.write("\n\n")
 
+    def check_personal_info_comment(self, comment, index, interval):
+        if "begin" in comment or "start" in comment:
+            if "begin personal information:" not in comment:
+                self.problems.append(("Malformed personal info comment: line# {}"
+                                    .format(index),
+                                    interval,
+                                    [comment]))
+        if "end" in comment:
+            if "end personal information" not in comment:
+                self.problems.append(("Malformed personal info comment: line# {}"
+                                    .format(index),
+                                    interval,
+                                    [comment]))
+
+        self.curr_personal_block = PersonalInfoGroup(index)
+
+    def parse_scrub_tier(self, line, index, interval):
+        if "Scrub" not in line:
+            self.problems.append(("Personal info (scrubbing) tier missing word \"Scrub\": line# {}"
+                                    .format(index),
+                                    interval,
+                                    [line]))
+
+        self.curr_personal_block.start_time = interval[0]
+        self.curr_personal_block.end_time = interval[1]
+        self.curr_personal_block.tier_line = index
+
+
+class PersonalInfoGroup:
+    def __init__(self, begin_com_index):
+        self.start_time = None
+        self.end_time = None
+
+        self.tier_line = None
+        self.start_line = begin_com_index
+        self.end_line = None
+
+        self.start_comment = ""
+        self.end_comment = ""
+
 if __name__ == "__main__":
 
     Tk().withdraw()
@@ -619,5 +682,3 @@ if __name__ == "__main__":
     filename = askopenfilename(filetypes=[("cha files", "*.cha")])
 
     clanfile_parser = Parser(filename)
-
-
