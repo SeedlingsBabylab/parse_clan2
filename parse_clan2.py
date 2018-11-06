@@ -35,9 +35,11 @@ class Parser:
         re6='(.)'	                # object_present
         re7='(_+)'	                # _
         re8='((?:[a-z][a-z0-9]*))' # speaker
+        re81='(_+)?'
+        re82='([a-z0-9]{6})?'       # annotid
 
         # incorrect regexes (for typos and formatting issues)
-        self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8+re81+re82, re.IGNORECASE | re.DOTALL)
         self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
@@ -406,11 +408,13 @@ class Parser:
                             continue
                         else:
                             for entry in entries:
+                                print((entry))
                                 self.words.append([line[0:4],
                                                    entry[0],            # word
                                                    entry[3],            # utterance_type
                                                    entry[5],            # object_present
                                                    entry[7],            # speaker
+                                                   entry[9],            # annotid
                                                    curr_interval[0],    # onset
                                                    curr_interval[1]])   # offset
 
@@ -538,11 +542,13 @@ class Parser:
                             print "line: " + line
                             continue
                         for entry in entries:
+                            print(entry)
                             self.words.append([last_line[0:4],
                                                entry[0],            # word
                                                entry[3],            # utterance_type
                                                entry[5],            # object_present
                                                entry[7],            # speaker
+                                               entry[9],            # annotid
                                                curr_interval[0],    # onset
                                                curr_interval[1]])   # offset
 
@@ -565,24 +571,26 @@ class Parser:
             curr_comment = ("no comment", 0, 0)
         with open(self.output_file, "wb") as output:
             writer = csv.writer(output)
-            writer.writerow(["tier","word","utterance_type","object_present","speaker","timestamp","basic_level","comment"])
+            writer.writerow(["tier","word","utterance_type","object_present","speaker","annotid","timestamp","basic_level","comment"])
             for entry in self.words:
-                #print entry
+                print(entry)
 
                 # check to make sure there are comments left on the queue
                 # If the current interval has passed the current comment interval,
                 # pop the next comment off the queue.
+                com = entry[6]
                 if comment_queue:
-                    if entry[5] > curr_comment[1]:
+                    if com > curr_comment[1]:
                         curr_comment = comment_queue.popleft()
 
-                if entry[5] == curr_comment[1]:
+                if com == curr_comment[1]:
                     writer.writerow([entry[0],
                                     entry[1],
                                     entry[2],
                                     entry[3],
                                     entry[4],
-                                    "{}_{}".format(entry[5], entry[6]),
+                                    entry[5],
+                                    "{}_{}".format(entry[6], entry[7]),
                                     " ",
                                     curr_comment[0]])
 
@@ -592,7 +600,8 @@ class Parser:
                                     entry[2],
                                     entry[3],
                                     entry[4],
-                                    "{}_{}".format(entry[5], entry[6]),
+                                    entry[5],
+                                    "{}_{}".format(entry[6], entry[7]),
                                     " ",
                                     "NA"])
 
