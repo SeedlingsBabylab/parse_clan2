@@ -40,20 +40,20 @@ class Parser:
 
         # incorrect regexes (for typos and formatting issues)
         self.entry_regx = re.compile(re1+re2+re3+re4+re5+re6+re7+re8+re81+re82, re.IGNORECASE | re.DOTALL)
-        self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8, re.IGNORECASE | re.DOTALL)
+        self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8+re81+re82, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
         self.joined_num_regx = re.compile("([yn]_[a-z0-9]{3}\d+)", re.IGNORECASE | re.DOTALL)
         self.joined_entry_wrdcount = re.compile("([yn]_[a-z0-9]{3}&=w)", re.IGNORECASE | re.DOTALL)
 
-        self.just_ampersand_regx = re.compile(re1+re2+'(&)'+'([qdiursn])'+re5+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.just_ampersand_regx = re.compile(re1+re2+'(&)'+'([qdiursn])'+re5+re6+re7+re8+re81+re82, re.IGNORECASE | re.DOTALL)
 
         # someword &=d-y-MOT
-        self.dash_not_underscore_all    = re.compile(re1+re2+re3+re4+'(-+)'+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
+        self.dash_not_underscore_all    = re.compile(re1+re2+re3+re4+'(-+)'+re6+'(-+)'+re8+re81+re82, re.IGNORECASE | re.DOTALL)
         # someword &=d-y_MOT
-        self.dash_not_underscore_first  = re.compile(re1+re2+re3+re4+'(-+)'+re6+re7+re8, re.IGNORECASE | re.DOTALL)
+        self.dash_not_underscore_first  = re.compile(re1+re2+re3+re4+'(-+)'+re6+re7+re8+re81+re82, re.IGNORECASE | re.DOTALL)
         # someword &=d_y-MOT
-        self.dash_not_underscore_second = re.compile(re1+re2+re3+re4+re5+re6+'(-+)'+re8, re.IGNORECASE | re.DOTALL)
+        self.dash_not_underscore_second = re.compile(re1+re2+re3+re4+re5+re6+'(-+)'+re8+re81+re82, re.IGNORECASE | re.DOTALL)
 
         re9='((?:[a-z][a-z]+))'	# Word 1
         re10='(\\s+)'	# White Space 1
@@ -69,13 +69,13 @@ class Parser:
         self.missing_code_just_word_andcount = re.compile('(\\s+)'+re9+re10+'(&=w)',re.IGNORECASE|re.DOTALL)
 
 
-        self.one_missing_code_first = re.compile(re1+re2+re3+re5+'([yn])'+re7+re8, re.IGNORECASE|re.DOTALL)
-        self.one_missing_code_second = re.compile(re1+re2+re3+re4+re5+re7+re8, re.IGNORECASE|re.DOTALL)
-        self.one_missing_code_third = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(\\s+)', re.IGNORECASE|re.DOTALL)
-        self.one_missing_code_third_joined_count = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(&=w)', re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_first = re.compile(re1+re2+re3+re5+'([yn])'+re7+re8+re81+re82, re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_second = re.compile(re1+re2+re3+re4+re5+re7+re8+re81+re82, re.IGNORECASE|re.DOTALL)
+        self.one_missing_code_third = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(\\s+)', re.IGNORECASE|re.DOTALL) # TODO
+        self.one_missing_code_third_joined_count = re.compile(re1+re2+re3+'([qdiursn])'+re5+'([yn])'+re7+'(&=w)', re.IGNORECASE|re.DOTALL) #TODO
 
-        self.missing_underscore_first = re.compile(re3+'([qdiursn])'+'([yn])'+re5+re8, re.IGNORECASE|re.DOTALL)
-        self.missing_underscore_second = re.compile(re3+'([qdiursn])'+re5+'([yn])'+re8, re.IGNORECASE|re.DOTALL)
+        self.missing_underscore_first = re.compile(re3+'([qdiursn])'+'([yn])'+re5+re8+re81+re82, re.IGNORECASE|re.DOTALL)
+        self.missing_underscore_second = re.compile(re3+'([qdiursn])'+re5+'([yn])'+re8+re81+re82, re.IGNORECASE|re.DOTALL)
 
         #self.scrub_regx = re.compile()
 
