@@ -43,9 +43,10 @@ class Parser:
         self.old_entry_regx = re.compile(re1+re2+'(&)'+re4+'(\\|)'+re6+'(\\|)'+re8+re81+re82, re.IGNORECASE | re.DOTALL)
         self.interval_regx = re.compile("(\025\d+_\d+)")
 
-        self.joined_num_regx = re.compile("([yn]_[a-z0-9]{3}\d+)", re.IGNORECASE | re.DOTALL)
-        self.joined_entry_wrdcount = re.compile("([yn]_[a-z0-9]{3}&=w)", re.IGNORECASE | re.DOTALL)
-
+        self.joined_num_regx = re.compile("(_[yn]_[a-z0-9]{3}\d+)", re.IGNORECASE | re.DOTALL)
+        self.joined_entry_wrdcount = re.compile("(_[yn]_[a-z0-9]{3}&=w)", re.IGNORECASE | re.DOTALL)
+        ## for new format:
+        # self.joined_entry_wrdcount = re.compile("([a-f0-9]{6}&=w)", re.IGNORECASE | re.DOTALL)
         self.just_ampersand_regx = re.compile(re1+re2+'(&)'+'([qdiursn])'+re5+re6+re7+re8+re81+re82, re.IGNORECASE | re.DOTALL)
 
         # someword &=d-y-MOT
