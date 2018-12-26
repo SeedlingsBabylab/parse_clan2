@@ -1,6 +1,6 @@
-from Tkinter import Tk
-from tkFileDialog import askopenfilename
-from tkMessageBox import showwarning
+# from Tkinter import Tk
+# from tkFileDialog import askopenfilename
+# from tkMessageBox import showwarning
 
 import csv
 import re
@@ -557,9 +557,9 @@ class Parser:
 
 
         if self.problems:
-            showwarning("Mistakes Found",
-                        "Fix the mistakes listed in the {} file"
-                        .format(os.path.split(self.error_file)[1]))
+            # showwarning("Mistakes Found",
+            #             "Fix the mistakes listed in the {} file"
+            #             .format(os.path.split(self.error_file)[1]))
             self.output_problems()
 
     def export(self):
