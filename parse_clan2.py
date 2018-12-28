@@ -409,7 +409,7 @@ class Parser:
                             continue
                         else:
                             for entry in entries:
-                                print((entry))
+                                # print((entry))
                                 self.words.append([line[0:4],
                                                    entry[0],            # word
                                                    entry[3],            # utterance_type
@@ -543,7 +543,7 @@ class Parser:
                             print "line: " + line
                             continue
                         for entry in entries:
-                            print(entry)
+                            # print(entry)
                             self.words.append([last_line[0:4],
                                                entry[0],            # word
                                                entry[3],            # utterance_type
@@ -574,7 +574,7 @@ class Parser:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","annotid","timestamp","basic_level","comment"])
             for entry in self.words:
-                print(entry)
+                # print(entry)
 
                 # check to make sure there are comments left on the queue
                 # If the current interval has passed the current comment interval,

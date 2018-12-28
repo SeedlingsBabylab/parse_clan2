@@ -16,10 +16,10 @@ def print_usage():
     print "$: python batch_parse_clan2.py /folder/with/cha/files  /output/folder"
 
 def process_folder(folder):
-    for file in os.listdir(folder):
-        if file.endswith("processed.csv"):
-            print("processed", file)
-            move(os.path.join(folder,file), os.path.join(folder, file.replace(".csv", "_no_id.csv")))
+    # for file in os.listdir(folder):
+        # if file.endswith("processed.csv"):
+            # print("processed", file)
+            # move(os.path.join(folder,file), os.path.join(folder, file.replace(".csv", "_no_id.csv")))
     for file in os.listdir(folder):
         if file.endswith("sparse_code.cha"):
             print("sparse", file)
