@@ -1,6 +1,6 @@
-# from Tkinter import Tk
-# from tkFileDialog import askopenfilename
-# from tkMessageBox import showwarning
+from Tkinter import Tk
+from tkFileDialog import askopenfilename
+from tkMessageBox import showwarning
 
 import csv
 import re
