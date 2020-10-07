@@ -570,7 +570,7 @@ class Parser:
         else:
             # if there are no comments, just set a dummy variable
             curr_comment = ("no comment", 0, 0)
-        with open(self.output_file, "wb") as output:
+        with open(self.output_file, "w") as output:
             writer = csv.writer(output)
             writer.writerow(["tier","word","utterance_type","object_present","speaker","annotid","timestamp","basic_level","comment"])
             for entry in self.words:
